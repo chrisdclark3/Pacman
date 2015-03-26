@@ -1,0 +1,88 @@
+<!doctype html>
+
+<html>
+
+<head>
+	<title>Pacman Game</title>
+	<style type="text/css">
+
+		#container {
+			background-color: black;
+			width: 400px;
+			height: 400px;
+			position: relative;
+		}
+
+		/* 0 */
+		.brick {
+			background-color: blue;
+			width: 32px;
+			height: 32px;
+			position: absolute;
+		}
+		/* 1 */
+		.coin{
+			background-image: url('coin.png');
+			background-size: cover;
+			width: 32px;
+			height: 32px;
+			position: absolute;
+		}
+		/* 2 */
+		.blank{
+			width: 32px;
+			height: 32px;
+			position: absolute;
+		}
+		.pacman{
+			background-image: url('pacman.gif');
+			background-size: cover;
+			width: 32px;
+			height: 32px;
+			position: absolute;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div id='container'>
+		<div id='world'></div>
+	</div>
+
+	<script type="text/javascript">
+		
+		var world = [
+			0,0,0,0,0,0,0,0,0,0
+			0,1,1,1,1,1,1,1,1,0
+			0,1,0,1,0,1,0,1,1,0
+			0,1,0,1,0,1,0,1,1,0
+			0,1,0,1,0,1,1,1,1,0
+			0,1,0,1,0,1,0,1,1,0
+			0,1,1,1,1,1,0,1,1,0
+			0,1,0,0,0,0,0,1,1,0
+			0,1,1,1,1,1,1,1,1,0
+			0,0,0,0,0,0,0,0,0,0
+		];
+
+		function draw_world() {
+			document.getElementById('world').innerHTML = "";
+			for (var i = 0; i < world.length; i++) {
+				if(world[i] == 0) {
+					document.getElementById('world').innerHTML =
+						document.getElementById('world').innerHTML +
+						"<div class='brick' style='top:" + Math.floor(i/10) * 32 + "px;left:" + (i % 10) * 32 + "px'></div>";
+				} else if(world[i] == 1) {
+					// draw a coin
+				} else {
+					// leave a blank
+				}
+			}
+		}
+
+		draw_world();
+	</script>
+
+</body>
+
+</html>
