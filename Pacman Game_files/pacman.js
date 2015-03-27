@@ -1,3 +1,4 @@
+
 var model = {
   left: {
     x: -1,
@@ -69,8 +70,8 @@ var model = {
     last_y: 13,
     s_target_x: 1,
     s_target_y: 1,
-    a_target_x: 0,
-    a_target_y: 0,
+    a_target_x: 2,
+    a_target_y: 1,
   },
 
   inky: {
@@ -81,8 +82,8 @@ var model = {
     last_y: 14,
     s_target_x: 27,
     s_target_y: 1,
-    a_target_x: 0,
-    a_target_y: 0
+    a_target_x: 2,
+    a_target_y: 1
   },
 
   blinky: {
@@ -93,8 +94,8 @@ var model = {
     last_y: 15,
     s_target_x: 1,
     s_target_y: 30,
-    a_target_x: 0,
-    a_target_y: 0
+    a_target_x: 2,
+    a_target_y: 1
   },
 
   clyde: {
@@ -105,8 +106,8 @@ var model = {
     last_y: 16,
     s_target_x: 27,
     s_target_y: 30,
-    a_target_x: 0,
-    a_target_y: 0
+    a_target_x: 2,
+    a_target_y: 1
   },
 
   score: 0,
@@ -190,7 +191,7 @@ var controller = {
 
     switch (e.keyCode) {
       case 37:
-        if ( model.world[(that.x + model.left.x + (that.y * 28))] != 1 ) {
+        if ( model.world[(that.x + model.left.x) + (that.y * 28)] != 1 ) {
           that.x += model.left.x;
         }
         break;
@@ -208,7 +209,7 @@ var controller = {
         break;
 
       case 40:
-        if (model.world[that.x + ((that.y + model.down.y) * 28)] != 1) {
+        if (model.world[(that.x + ((that.y + model.down.y) * 28))] != 1) {
           that.y = that.y + model.down.y;
         }
         break;
@@ -226,8 +227,10 @@ var controller = {
       model.world[(that.last_x + (that.last_y * 28))] = 0;
       model.score += 100;
     };
-    view.set_box_class.call((that.last_x + that.last_y * 28));
+    
+    view.set_box_class((that.last_x + that.last_y * 28));
     view.draw_character.call(that);
+    
   },
 
   ghost_scatter: function() {
@@ -279,70 +282,59 @@ var controller = {
 
   },
 
-  ghost_move: function(typeOfMove) {
-    var that = this;
-    var target_x = NaN;
-    var target_y = NaN;
+//   ghost_attack: function(charObj) {
 
-    if (typeOfMove == 'scatter') {
-      target_x = that.s_target_x;
-      target_y = that.s_target_y;
-    }
+//     var move_left = { x: charObj.x + model.left.x, y: charObj.y };
+//     var move_up = { x: charObj.x, y: charObj.y + model.up.y };
+//     var move_right = { x: charObj.x + model.right.x, y: charObj.y };
+//     var move_down = { x: charObj.x, y: charObj.y + model.down.y };
 
-    if (typeOfMove == 'attack') {
-      target_x = that.a_target_x + model.pacman.x;
-      target_y = that.a_target_y + model.pacman.y;
-    }
+//     var arr = [move_left, move_up, move_right, move_down];
 
-    var move_left = { x: that.x + model.left.x, y: that.y };
-    var move_up = { x: that.x, y: that.y + model.up.y };
-    var move_right = { x: that.x + model.right.x, y: that.y };
-    var move_down = { x: that.x, y: that.y + model.down.y };
-    var arr = [move_left, move_up, move_right, move_down];
-    
+//     var ctt = { 
+//       x: arr[0].x, 
+//       y: arr[0].y 
+//     };
 
-    var validity = false;
+//     var validity = false;
 
-    while (validity == false) {
-      validity = true;
-      for (i in arr) {
-        var next_move = model.world[arr[i].x + arr[i].y * 28];
-        if (next_move == 1) {
-          arr.splice(i, 1);
-          validity = false;
-        } else if (controller.on_board(arr[i].x, arr[i].y) == false) {
-          arr.splice(i, 1);
-          validity = false;
-        } else if ((arr[i].x == that.last_x && arr[i].y == that.last_y)) {
-          arr.splice(i, 1);
-          validity = false;
-        }
-      }
-    };
+//     while (validity == false) {
+//       validity = true;
+//       for (i in arr) {
+//         var next_move = model.world[((arr[i].x) + (arr[i].y * 28))];
+//         if (next_move == 1) {
+//           arr.splice(i, 1);
+//           var validity = false;
+//         } else if (controller.on_board(arr[i].x, arr[i].y) == false) {
+//           arr.splice(i, 1);
+//           validity = false;
+//         } else if ((arr[i].x == charObj.last_x && arr[i].y == charObj.last_y)) {
+//           arr.splice(i, 1);
+//           validity = false;
+//         }
+//       }
+//     };
 
-    var ctt = { 
-      x: arr[0].x, 
-      y: arr[0].y 
-    };
+//     console.log()
 
-    
-    for (i in arr) {
-      if ( (Math.abs(arr[i].x - target_x) + Math.abs(arr[i].y - target_y)) <= (Math.abs(ctt.x - target_x) + Math.abs(ctt.y - target_y)) ) {
-        ctt.x = arr[i].x;
-        ctt.y = arr[i].y;
-      }
-    };
+//     for (i in arr) {
+//       if ( (Math.abs(arr[i].x - charObj.a_target_x) + Math.abs(arr[i].y - charObj.a_target_y)) <= (Math.abs(ctt.x - charObj.a_target_x) + Math.abs(ctt.y - charObj.a_target_y)) ) {
+//         ctt.x = arr[i].x;
+//         ctt.y = arr[i].y;
+//       }
+//     };
 
-    that.last_x = that.x;
-    that.last_y = that.y;
+//     charObj.last_x = charObj.x;
+//     charObj.last_y = charObj.y;
 
-    that.x = ctt.x;
-    that.y = ctt.y;
+//     charObj.x = ctt.x;
+//     charObj.y = ctt.y;
 
-    view.draw_character.call(that);
-    view.set_box_class.call(that.last_x + that.last_y * 28);
-
-  },
+   
+//     view.draw_character(charObj);
+//     view.set_box_class(((charObj.last_x) + (charObj.last_y * 28)));
+  
+//   }
 };
 
 
@@ -357,37 +349,28 @@ function init() {
   view.draw_lives();
 }
 
+function ghost_interval() {
+  controller.ghost_scatter.call(model.pinky);
+  view.draw_character.call(model.pinky);
+  view.set_box_class.call(model.pinky.last_x + model.pinky.last_y * 28);
+
+  controller.ghost_scatter.call(model.inky);
+  view.draw_character.call(model.inky);
+  view.set_box_class.call(model.inky.last_x + model.inky.last_y * 28);
+
+  controller.ghost_scatter.call(model.blinky);
+  view.draw_character.call(model.blinky);
+  view.set_box_class.call(model.blinky.last_x + model.blinky.last_y * 28);
+  
+  controller.ghost_scatter.call(model.clyde);
+  view.draw_character.call(model.clyde);
+  view.set_box_class.call(model.clyde.last_x + model.clyde.last_y * 28);
+}
+
 window.onload = init;
 document.onkeydown = controller.move_pacman;
+window.setInterval((ghost_interval), 200);
 document.onkeydown;
-
-function ghosts_scatter() {
-  var ghosts = [model.pinky, model.inky, model.blinky, model.clyde];
-  for (i in ghosts) {
-    controller.ghost_move.call(ghosts[i], 'scatter');
-  }
-};
-
-function ghosts_attack() {
-  var ghosts = [model.pinky, model.inky, model.blinky, model.clyde];
-  for (i in ghosts) {
-    controller.ghost_move.call(ghosts[i], 'attack');
-  }
-};
-
-var start = window.setInterval(ghosts_scatter, 500);
-
-function stop() { window.clearInterval(start); };
-
-window.setTimeout(stop, 10000);
-
-window.setTimeout(function() { start = window.setInterval(ghosts_attack, 500); }, 13000);
-
-window.setTimeout(stop, 15000);
-
-
-//window.setTimeout(window.setInterval(ghosts_attack, 500), 10001);
-
 
 // window.setTimeout(window.clearInterval(pinky_scatter), 10000);
 // window.setTimeout(window.clearInterval(blinky_scatter), 10000);
