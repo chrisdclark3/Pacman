@@ -1,4 +1,5 @@
 var model = {
+
   left: {
     x: -1,
     y: 0
@@ -58,7 +59,8 @@ var model = {
     x: 1, 
     y: 7,
     last_x: 2,
-    last_y: 7
+    last_y: 7,
+    rotation: 0,
   },
 
   pinky: {
@@ -71,6 +73,7 @@ var model = {
     s_target_y: 1,
     a_target_x: 0,
     a_target_y: 0,
+    rotation: 0,
   },
 
   inky: {
@@ -82,7 +85,8 @@ var model = {
     s_target_x: 27,
     s_target_y: 1,
     a_target_x: 0,
-    a_target_y: 0
+    a_target_y: 0,
+    rotation: 0,
   },
 
   blinky: {
@@ -94,7 +98,8 @@ var model = {
     s_target_x: 1,
     s_target_y: 30,
     a_target_x: 0,
-    a_target_y: 0
+    a_target_y: 0,
+    rotation: 0,
   },
 
   clyde: {
@@ -106,7 +111,8 @@ var model = {
     s_target_x: 27,
     s_target_y: 30,
     a_target_x: 0,
-    a_target_y: 0
+    a_target_y: 0,
+    rotation: 0,
   },
 
   score: 0,
@@ -114,6 +120,7 @@ var model = {
 };
 
 var view = {
+
   set_box_class: function() {
     var that = this;
     switch (model.world[that]) {
@@ -142,14 +149,14 @@ var view = {
       count += 1;
       if (count === 1) {
         document.getElementById('world').innerHTML += "<tr id= 'r"+row_count+"'>";
-        document.getElementById("r"+row_count).innerHTML += "<td id='"+i+"'></td>";
+        document.getElementById("r"+row_count).innerHTML += "<td id='"+i+"' style = '-webkit-transform: rotate(0deg)'></td>";
       } else if (count === 28) {
-        document.getElementById("r"+row_count).innerHTML += "<td id='"+i+"'></td>";
+        document.getElementById("r"+row_count).innerHTML += "<td id='"+i+"' style = '-webkit-transform: rotate(0deg)'></td>";
         document.getElementById('world').innerHTML += "</tr>";
         count = 0;
         row_count += 1;
       } else {
-        document.getElementById("r"+row_count).innerHTML += "<td id='"+i+"'></td>";
+        document.getElementById("r"+row_count).innerHTML += "<td id='"+i+"' style = '-webkit-transform: rotate(0deg)'></td>";
       }
       view.set_box_class.call(i);
     }
@@ -159,6 +166,9 @@ var view = {
     var that = this;
     var charid = (that.x + that.y * 28);
     document.getElementById(charid).className = that.name;
+    document.getElementById(charid).setAttribute("style", "-webkit-transform: rotate(" + that.rotation + "deg)");
+    console.log(document.getElementById(charid));
+    console.log(that.rotation);
   },
 
   draw_score: function() {
@@ -192,24 +202,28 @@ var controller = {
       case 37:
         if ( model.world[(that.x + model.left.x + (that.y * 28))] != 1 ) {
           that.x += model.left.x;
+          that.rotation = 180;
         }
         break;
 
       case 38:
         if (model.world[(that.x + ((that.y + model.up.y) * 28))] != 1) {
           that.y = that.y + model.up.y;
+          that.rotation = 270;
         }
         break;
 
       case 39:
         if (model.world[(that.x + model.right.x + (that.y * 28))] != 1) {
           that.x = that.x + model.right.x;
+          that.rotation = 0;
         }
         break;
 
       case 40:
         if (model.world[that.x + ((that.y + model.down.y) * 28)] != 1) {
           that.y = that.y + model.down.y;
+          that.rotation = 90;
         }
         break;
 
@@ -228,55 +242,6 @@ var controller = {
     };
     view.set_box_class.call((that.last_x + that.last_y * 28));
     view.draw_character.call(that);
-  },
-
-  ghost_scatter: function() {
-    var that = this;
-    var move_left = { x: that.x + model.left.x, y: that.y };
-    var move_up = { x: that.x, y: that.y + model.up.y };
-    var move_right = { x: that.x + model.right.x, y: that.y };
-    var move_down = { x: that.x, y: that.y + model.down.y };
-    var arr = [move_left, move_up, move_right, move_down];
-    
-
-    var validity = false;
- 
-    while (validity == false) {
-      validity = true;
-      for (i in arr) {
-        var next_move = model.world[arr[i].x + arr[i].y * 28];
-        if (next_move == 1) {
-          arr.splice(i, 1);
-          validity = false;
-        } else if (controller.on_board(arr[i].x, arr[i].y) == false) {
-          arr.splice(i, 1);
-          validity = false;
-        } else if ((arr[i].x == that.last_x && arr[i].y == that.last_y)) {
-          arr.splice(i, 1);
-          validity = false;
-        }
-      }
-    };
-
-    var ctt = { 
-      x: arr[0].x, 
-      y: arr[0].y 
-    };
-
-    
-    for (i in arr) {
-      if ( (Math.abs(arr[i].x - that.s_target_x) + Math.abs(arr[i].y - that.s_target_y)) <= (Math.abs(ctt.x - that.s_target_x) + Math.abs(ctt.y - that.s_target_y)) ) {
-        ctt.x = arr[i].x;
-        ctt.y = arr[i].y;
-      }
-    };
-
-    that.last_x = that.x;
-    that.last_y = that.y;
-
-    that.x = ctt.x;
-    that.y = ctt.y;
-
   },
 
   ghost_move: function(typeOfMove) {
@@ -339,6 +304,21 @@ var controller = {
     that.x = ctt.x;
     that.y = ctt.y;
 
+    
+
+    if (that.x == move_left.x && that.y == move_left.y) {
+      that.rotation = 0;
+    }; 
+    if (that.x == move_up.x && that.y == move_up.y) {
+      that.rotation = 0;
+    };
+    if (that.x == move_right.x && that.y == move_right.y) {
+      that.rotation = 0;
+    };
+    if (that.x == move_down.x && that.y == move_down.y) {
+      that.rotation = 0;
+    };
+
     view.draw_character.call(that);
     view.set_box_class.call(that.last_x + that.last_y * 28);
 
@@ -375,29 +355,15 @@ function ghosts_attack() {
   }
 };
 
-var start = window.setInterval(ghosts_scatter, 500);
+var start = window.setInterval(ghosts_scatter, 5000);
 
-function stop() { window.clearInterval(start); };
+//function stop() { window.clearInterval(start); };
 
-window.setTimeout(stop, 10000);
+//window.setTimeout(stop, 10000);
 
-window.setTimeout(function() { start = window.setInterval(ghosts_attack, 500); }, 13000);
+//window.setTimeout(function() { start = window.setInterval(ghosts_attack, 5000); }, 13000);
 
-window.setTimeout(stop, 15000);
-
-
-//window.setTimeout(window.setInterval(ghosts_attack, 500), 10001);
-
-
-// window.setTimeout(window.clearInterval(pinky_scatter), 10000);
-// window.setTimeout(window.clearInterval(blinky_scatter), 10000);
-// window.setTimeout(window.clearInterval(inky_scatter), 10000);
-// window.setTimeout(window.clearInterval(clyde_scatter), 10000);
-
-// var pinky_attack = window.setInterval(controller.ghost_attack(model.pinky), 400);
-// var blinky_attack = window.setInterval(controller.ghost_attack(model.blinky), 400);
-// var inky_attack = window.setInterval(controller.ghost_attack(model.inky), 400);
-// var clyde_attack = window.setInterval(controller.ghost_attack(model.clyde), 400);
+//window.setTimeout(stop, 15000);
 
  
 
