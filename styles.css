@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: white;
+    background-color: black;
+}
+
+h1 {
+    display: inline;
+    font-size: 8em;
+    font-weight: 800;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#score,
+#lives {
+    color: red;
+    display: inline-block;
+    color: black;
+    padding-top: 10px;
+    padding-left: 10px;
+    font-family: Impact;
+}
+
+
+#world {
+    width: 84vh !important;
+    height: 93vh !important;
+    border-spacing: 0px;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    text-align: center;
+}
+
+#world > * {
+		background-color: transparent;
+    float: left;
+    background-size: cover;
+    width: 3vh !important;
+    height: 3vh !important;
+    display: inline-block;
+}
+.blank {
+	background-color: transparent;
+}
+.brick {
+    outline: 1px solid blue;
+    z-index: 10;
+}
+.coin {
+    background-image: url('assets/coin.png');
+}
+.cherry {
+    background-image: url('assets/cherry.png');
+}
+
+.pacman {
+    background-image: url('assets/pacman.png');
+}
+.pinky {
+    background-image: url('assets/pinky.png');
+}
+
+.inky {
+    background-image: url('assets/inky.png');
+}
+
+.blinky {
+    background-image: url('assets/blinky.png');
+}
+
+.clyde {
+    background-image: url('assets/clyde.png');
+}
+
+.frighten {
+    background-image: url('assets/frighten.png');
+}

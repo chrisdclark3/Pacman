@@ -1,358 +1,353 @@
-var model = {
-
-  world: [
-  // 28w * 31l
-    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-    1,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,2,2,2,2,2,2,2,2,2,2,2,1,
-    1,2,1,1,1,1,2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,0,1,1,1,1,0,1,
-    1,2,1,1,1,1,2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,0,1,1,1,1,0,1,
-    1,2,1,1,1,1,2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,0,1,1,1,1,0,1,
-    1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-    1,2,1,1,1,1,2,1,1,2,1,1,1,1,1,1,1,1,2,1,1,2,1,1,1,1,2,1,
-    1,2,1,1,1,1,2,1,1,2,1,1,1,1,1,1,1,1,2,1,1,2,1,1,1,1,2,1,
-    1,2,2,2,2,2,2,1,1,2,2,2,2,1,1,2,2,2,2,1,1,2,2,2,2,2,2,1,
-    1,1,1,1,1,1,2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,2,1,1,1,1,1,1,
-    1,1,1,1,1,1,2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,2,1,1,1,1,1,1,
-    1,1,1,1,1,1,2,1,1,0,0,0,0,0,0,0,0,0,0,1,1,2,1,1,1,1,1,1,
-    1,1,1,1,1,1,2,1,1,0,1,1,1,1,0,1,1,1,0,1,1,2,1,1,1,1,1,1,
-    1,1,1,1,1,1,2,1,1,0,1,1,1,1,0,1,1,1,0,1,1,2,1,1,1,1,1,1,
-    1,0,0,0,0,0,2,2,2,0,1,1,1,1,0,1,1,1,0,2,2,2,0,0,0,0,0,1,
-    1,1,1,1,1,1,2,1,1,0,1,1,1,1,1,1,1,1,0,1,1,2,1,1,1,1,1,1,
-    1,1,1,1,1,1,2,1,1,0,1,1,1,1,1,1,1,1,0,1,1,2,1,1,1,1,1,1,
-    1,1,1,1,1,1,2,1,1,0,0,0,0,0,0,0,0,0,0,1,1,2,1,1,1,1,1,1,
-    1,1,1,1,1,1,2,1,1,0,1,1,1,1,1,1,1,1,0,1,1,2,1,1,1,1,1,1,
-    1,1,1,1,1,1,2,1,1,0,1,1,1,1,1,1,1,1,0,1,1,2,1,1,1,1,1,1,
-    1,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,2,2,2,2,2,2,2,2,2,2,2,1,
-    1,2,1,1,1,1,2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,2,1,1,1,1,2,1,
-    1,2,1,1,1,1,2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,2,1,1,1,1,2,1,
-    1,2,2,2,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,2,2,1,
-    1,1,1,2,1,1,2,1,1,2,1,1,1,1,1,1,1,1,2,1,1,2,1,1,2,1,1,1,
-    1,1,1,2,1,1,2,1,1,2,1,1,1,1,1,1,1,1,2,1,1,2,1,1,2,1,1,1,
-    1,2,2,2,2,2,2,1,1,2,2,2,2,1,1,2,2,2,2,1,1,2,2,2,2,2,2,1,
-    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-    1,2,1,1,1,1,1,1,1,1,1,1,2,1,1,2,1,1,1,1,1,1,1,1,1,1,2,1,
-    1,2,1,1,1,1,1,1,1,1,1,1,2,1,1,2,1,1,1,1,1,1,1,1,1,1,2,1,
-    1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-  ],
-
-  pacman: { 
-    x: 1, 
-    y: 1 
-  },
-
-  pinky: { 
-    x: 14, 
-    y: 12,
-    last_x: 0,
-    last_y: 0,
-    s_target_x: 1,
-    s_target_y: 1,
-    scatter: controller.scatter_ghost()
-  },
-
-  inky: { 
-    x: 14, 
-    y: 13,
-    last_x: 0,
-    last_y: 0,
-    s_target_x: 27,
-    s_target_y: 1
-  },
-
-  blinky: { 
-    x: 14, 
-    y: 14,
-    last_x: 0,
-    last_y: 0,
-    s_target_x: 1,
-    s_target_y: 30
-  },
-
-  clyde: { 
-    x: 14, 
-    y: 15,
-    last_x: 0,
-    last_y: 0,
-    s_target_x: 27,
-    s_target_y: 30
-  },
-
-  score: 0,
-
-  lives: 3,
-
-  rotation: 0
-
+var Character = function(x, y, name) {
+	return {
+		name: name,
+		left: {
+			x: -1,
+			y: 0
+		},
+		up: {
+			x: 0,
+			y: -1
+		},
+		right: {
+			x: 1,
+			y: 0
+		},
+		down: {
+			x: 0,
+			y: 1
+		},
+		x: x,
+		y: y,
+		lastX: x,
+		lastY: y,
+		rotation: 0
+	};
 };
 
-var view = {
-  set_box_class: function(i) {
-    switch (model.world[i]) {
-      case 0:
-        document.getElementById(i).className = 'blank';
-        break;
-      case 1:
-        document.getElementById(i).className = 'brick';
-        break;
-      case 2:
-        document.getElementById(i).className = 'coin';
-        break;
-      case 3:
-        document.getElementById(i).className = 'cherry';
-        break;
-      default:
-        break;
-    }
-  },
-  draw_world: function() {
-    document.getElementById('world').innerHTML = "";
-    var count = 0;
-    var row_count = 0;
-    for (var i = 0; i < model.world.length; i++) {
-      count += 1;
-      if (count === 1) {
-        document.getElementById('world').innerHTML += "<tr id= 'r"+row_count+"'>";
-        document.getElementById("r"+row_count).innerHTML += "<td id='"+i+"'></td>";
-      } else if (count === 28) {
-        document.getElementById("r"+row_count).innerHTML += "<td id='"+i+"'></td>";
-        document.getElementById('world').innerHTML += "</tr>";
-        count = 0;
-        row_count += 1;
-      } else {
-        document.getElementById("r"+row_count).innerHTML += "<td id='"+i+"'></td>";
-      }
-      view.set_box_class(i);
-    }
-  },
-  draw_pacman: function() {
-    i = ((model.pacman.x) + (model.pacman.y * 28));
-    document.getElementById(i).className = "pacman";
-  },
-  draw_pinky: function() {
-    i = ((model.pinky.x) + (model.pinky.y * 28));
-    document.getElementById(i).className = "pinky";
-  },
-  draw_inky: function() {
-    i = ((model.inky.x) + (model.inky.y * 28));
-    document.getElementById(i).className = "inky";
-  },
-  draw_blinky: function() {
-    i = ((model.blinky.x) + (model.blinky.y * 28));
-    document.getElementById(i).className = "blinky";
-  },
-  draw_clyde: function() {
-    i = ((model.clyde.x) + (model.clyde.y * 28));
-    document.getElementById(i).className = "clyde";
-  },
-  draw_score: function() {
-    document.getElementById('score').innerHTML = "";
-    document.getElementById('score').innerHTML =
-      "<div class='score' style='top: 75px'>" + "SCORE: " + model.score + "</div>";
-  },
-  draw_lives: function() {
-    document.getElementById('lives').innerHTML = "";
-    document.getElementById('lives').innerHTML =
-      "<div class='lives' style='top: 75px; left: 200px'>" + "LIVES: " + model.lives + "</div>";
-  },
+var Pacman = function() {
+
+	var pacman = new Character(1, 1, "pacman");
+
+	pacman.move = function(e) {
+		var world = this;
+
+		switch (e.keyCode) {
+			case 37:
+				if (world.level[(pacman.x + pacman.left.x + (pacman.y * 28))] != 1) {
+					pacman.x += pacman.left.x;
+					pacman.rotation = 180;
+				}
+				break;
+			case 38:
+				if (world.level[(pacman.x + ((pacman.y + pacman.up.y) * 28))] != 1) {
+					pacman.y = pacman.y + pacman.up.y;
+					pacman.rotation = 270;
+				}
+				break;
+			case 39:
+				if (world.level[(pacman.x + pacman.right.x + (pacman.y * 28))] != 1) {
+					pacman.x = pacman.x + pacman.right.x;
+					pacman.rotation = 0;
+				}
+				break;
+			case 40:
+				if (world.level[pacman.x + ((pacman.y + pacman.down.y) * 28)] != 1) {
+					pacman.y = pacman.y + pacman.down.y;
+					pacman.rotation = 90;
+				}
+				break;
+		}
+		if (world.level[((pacman.y * 28) + (pacman.x))] == 2) {
+			world.level[(pacman.x + (pacman.y * 28))] = 0;
+			world.score += 10;
+		}
+		if (world.level[((pacman.y * 28) + (pacman.x))] == 3) {
+			world.level[(pacman.x + (pacman.y * 28))] = 0;
+			world.score += 100;
+		}
+
+		world.setBoxClass(pacman.lastX + pacman.lastY * 28);
+		world.setBoxClass(pacman.x + pacman.y * 28);
+
+		world.drawCharacter(pacman);
+
+		pacman.lastY = pacman.y;
+		pacman.lastX = pacman.x;
+	}
+	return pacman;
 };
 
-var controller = {
-  on_board: function(a, b) {
-    if ((a > 0 && a < 27) && (b > 0 && b < 31)) {
-      return true;
-    } else {
-      return false;
-    }
-  },
+var Ghost = function(x, y, sx, sy, ax, ay, name) {
 
-  move_pacman: function(e) {
-    var old_pos = { 
-      x: Number(model.pacman.x),
-      y: Number(model.pacman.y)
-    }
-    var move_left = { 
-      x: model.pacman.x - 1,
-      y: model.pacman.y
-    }
-    var move_up = { 
-      x: model.pacman.x,
-      y: model.pacman.y - 1
-    }
-    var move_down = { 
-      x: model.pacman.x,
-      y: model.pacman.y + 1
-    }
-    var move_right = { 
-      x: model.pacman.x + 1,
-      y: model.pacman.y
-    }
+	var ghost = new Character(x, y, name);
 
-    switch (e.keyCode) {
-      case 37:
-        if (model.world[(move_left.x + (move_left.y * 28))] != 1) {
-          model.pacman.x = move_left.x;
-          model.pacman.y = move_left.y;
-          rotation = 180;
-        }
-        break;
-      case 38:
-        if (model.world[(move_up.x + (move_up.y * 28))] != 1) {
-          model.pacman.x = move_up.x;
-          model.pacman.y = move_up.y;
-          rotation = 270;
-        }
-        break;
-      case 39:
-        if (model.world[(move_right.x + (move_right.y * 28))] != 1) {
-          model.pacman.x = move_right.x;
-          model.pacman.y = move_right.y;
-          rotation = 0;
-        }
-        break;
-      case 40:
-        if (model.world[(move_down.x + (move_down.y * 28))] != 1) {
-          model.pacman.x = move_down.x;
-          model.pacman.y = move_down.y;
-          rotation = 90;
-        }
-        break;
-      default:
-        break;
-    }
-    if (model.world[((model.pacman.y * 28) + (model.pacman.x))] == 2) {
-      model.world[((model.pacman.y * 28) + (model.pacman.x))] = 0;
-      model.world[(old_pos.x + (old_pos.y * 28))] = 0;
-      model.score += 10;
-    }
-    if (model.world[((model.pacman.y * 28) + (model.pacman.x))] == 3) {
-      model.world[((model.pacman.y * 28) + (model.pacman.x))] = 0;
-      model.world[(old_pos.x + (old_pos.y * 28))] = 0;
-      model.score += 100;
-    }
-    view.set_box_class((old_pos.x + (old_pos.y * 28)));
-    view.draw_pacman();
-  },
+	ghost.scatterTarget = {
+		x: sx,
+		y: sy
+	};
 
-  scatter_ghost: function() {
-    var move_left = { x: (this.x - 1), y: (this.y) };
-    var move_up = { x: (this.x), y: (this.y - 1) };
-    var move_down = { x: (this.x), y: (this.y + 1) };
-    var move_right = { x: (this.x + 1), y: (this.y) };
-    var arr = [move_left, move_up, move_right, move_down];
-    var validity = false;
+	ghost.attackTarget = {
+		x: ax,
+		y: ay
+	};
 
-    while (validity == false) {
-      validity = true;
-      for (i in arr) {
-        var next_pos_value = model.world[((arr[i].x) + (arr[i].y * 28))];
-        if (next_pos_value === 1) {
-          arr.splice(i, 1);
-          var validity = false;
-        } else if (controller.on_board(arr[i].x, arr[i].y) == false) {
-          arr.splice(i, 1);
-          validity = false;
-        } else if ((arr[i].x == this.last_x && arr[i].y == this.last_y)) {
-          arr.splice(i, 1);
-          validity = false;
-        }
-      }
-    };
+	ghost.mode = 'scatter';
 
-    var ctt = { x: arr[0].x , y: arr[0].y };
+	ghost.move = function(pacman) {
+		var world = this, tx, ty;
 
-    for (i in arr) {
-      if ((arr[i].x - this.s_target_x + arr[i].y - this.s_target_y) < (this.last_x - this.s_target_x + this.last_y - this.s_target_y)) {
-        ctt.x = arr[i].x;
-        ctt.y = arr[i].y;
-      }
-    };
+		if (ghost.mode === 'scatter') {
+			console.log("scattering...");
+			tx = ghost.scatterTarget.x;
+			ty = ghost.scatterTarget.y;
+		}
 
-    if ((this.x ==  this.s_target_x) && (this.y ==  this.s_target_y)) {
-      ctt.x = move_down.x;
-      ctt.y = move_down.y;
-    };
+		if (ghost.mode === 'attack') {
+			console.log("attacking...");
+			tx = ghost.attackTarget.x;
+			ty = ghost.attackTarget.y;
+		}
 
-    this.last_x = this.x;
-    this.last_y = this.y;
+		var left = {
+				x: ghost.x + ghost.left.x,
+				y: ghost.y
+			},
+			up = {
+				x: ghost.x,
+				y: ghost.y + ghost.up.y
+			},
+			right = {
+				x: ghost.x + ghost.right.x,
+				y: ghost.y
+			},
+			down = {
+				x: ghost.x,
+				y: ghost.y + ghost.down.y
+			};
 
-    this.x = ctt.x;
-    this.y = ctt.y;
+		var arr = [left, up, right, down];
 
-    view.draw_pinky();
+		var valid = false;
+		while (valid == false) {
+			valid = true;
+			for (i in arr) {
+				var next = world.level[(arr[i].x + arr[i].y * 28)];
+				if (next == 1) {
+					arr.splice(i, 1);
+					valid = false;
+				} else if (world.onWorld(arr[i]) == false) {
+					arr.splice(i, 1);
+					valid = false;
+				} else if ((arr[i].x == ghost.lastX && arr[i].y == ghost.lastY)) {
+					arr.splice(i, 1);
+					valid = false;
+				}
+			}
+		};
 
-    view.set_box_class(((this.last_x) + (this.last_y * 28)));
-  }
+		var ctt = {
+			x: arr[0].x,
+			y: arr[0].y
+		};
 
-  // scatter_pinky: function() {
-  //   var move_left = { x: (model.pinky.x - 1), y: (model.pinky.y) };
-  //   var move_up = { x: (model.pinky.x), y: (model.pinky.y - 1) };
-  //   var move_down = { x: (model.pinky.x), y: (model.pinky.y + 1) };
-  //   var move_right = { x: (model.pinky.x + 1), y: (model.pinky.y) };
-  //   var arr = [move_left, move_up, move_right, move_down];
-  //   var validity = false;
+		for (i in arr) {
+			if ((Math.abs(arr[i].x - tx) + Math.abs(arr[i].y - ty)) <= (Math.abs(ctt.x - tx) + Math.abs(ctt.y - ty))) {
+				ctt.x = arr[i].x;
+				ctt.y = arr[i].y;
+			}
+		};
+		world.drawCharacter(ghost);
+		world.setBoxClass(ghost.lastX + ghost.lastY * 28);
 
-  //   while (validity == false) {
-  //     validity = true;
-  //     for (i in arr) {
-  //       var next_pos_value = model.world[((arr[i].x) + (arr[i].y * 28))];
-  //       if (next_pos_value === 1) {
-  //         arr.splice(i, 1);
-  //         var validity = false;
-  //       } else if (controller.on_board(arr[i].x, arr[i].y) == false) {
-  //         arr.splice(i, 1);
-  //         validity = false;
-  //       } else if ((arr[i].x == model.pinky.last_x && arr[i].y == model.pinky.last_y)) {
-  //         arr.splice(i, 1);
-  //         validity = false;
-  //       }
-  //     }
-  //   };
+		ghost.lastX = ghost.x;
+		ghost.lastY = ghost.y;
 
-  //   var ctt = { x: arr[0].x , y: arr[0].y };
+		ghost.x = ctt.x;
+		ghost.y = ctt.y;
 
-  //   for (i in arr) {
-  //     if ((arr[i].x - model.pinky.s_target_x + arr[i].y - model.pinky.s_target_y) < (model.pinky.last_x - model.pinky.s_target_x + model.pinky.last_y - model.pinky.s_target_y)) {
-  //       ctt.x = arr[i].x;
-  //       ctt.y = arr[i].y;
-  //     }
-  //   };
+	};
+	return ghost;
+};
 
-  //   if ((model.pinky.x ==  model.pinky.s_target_x) && (model.pinky.y ==  model.pinky.s_target_y)) {
-  //     ctt.x = move_down.x;
-  //     ctt.y = move_down.y;
-  //   };
+var World = function() {
 
-  //   model.pinky.last_x = model.pinky.x;
-  //   model.pinky.last_y = model.pinky.y;
+	return {
 
-  //   model.pinky.x = ctt.x;
-  //   model.pinky.y = ctt.y;
+		level: [
+			// 28w * 31l
+			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+			1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1,
+			1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1,
+			1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1,
+			1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1,
+			1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1,
+			1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1,
+			1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1,
+			1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 1,
+			1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 0, 0, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1,
+			1, 0, 0, 0, 0, 1, 2, 2, 2, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 2, 2, 2, 1, 0, 0, 0, 0, 1,
+			1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1,
+			1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1,
+			1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1,
+			1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1,
+			1, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 1,
+			1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1,
+			1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1,
+			1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 1,
+			1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1,
+			1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1,
+			1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1,
+			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+		],
 
-  //   view.draw_pinky();
-  //   view.set_box_class(((model.pinky.last_x) + (model.pinky.last_y * 28)));
-  // },
+		setBoxClass: function(id) {
+			switch (this.level[id]) {
+				case 0:
+					$('#' + id).attr('class', 'blank');
+					break;
+				case 1:
+					$('#' + id).attr('class', 'brick');
+					break;
+				case 2:
+					$('#' + id).attr('class', 'coin');
+					break;
+				case 3:
+					$('#' + id).attr('class', 'cherry');
+					break;
+			}
+		},
 
-  
-}
+		drawWorld: function() {
+			$('#world').html("");
+			for (var i = 0; i < this.level.length; i++) {
+				$("#world").append("<div id='" + i + "'></div>");
+				this.setBoxClass(i);
+			}
+		},
 
-function init() {
-  view.draw_world();
-  view.draw_pacman();
-  view.draw_pinky();
-  view.draw_inky();
-  view.draw_blinky();
-  view.draw_clyde();
-  view.draw_score();
-  view.draw_lives();
+		onWorld: function(position) {
+			if ((position.x > 0 && position.x < 27) && (position.y > 0 && position.y < 31)) {
+				return true;
+			} else {
+				return false;
+			}
+		},
 
-}
+		drawCharacter: function(character) {
+			var location = (character.x + character.y * 28);
+			$("#" + location).attr('class', character.name);
+			$('.' + character.name).css({
+				'-webkit-transform': 'rotate(' + character.rotation + 'deg)',
+				'-moz-transform': 'rotate(' + character.rotation + 'deg)',
+				'-ms-transform': 'rotate(' + character.rotation + 'deg)',
+				'-o-transform': 'rotate(' + character.rotation + 'deg)',
+				'transform': 'rotate(' + character.rotation + 'deg)'
+			});
+		}
+	};
+};
 
-addEventListener('keydown', controller.move_pacman);
-window.onload = init;
-window.setInterval(model.pinky.scatter(), 200);
-// window.setTimeout(window.setInterval(controller.scatter_blinky, 200), 2000);
+var Game = function() {
 
- 
+	var pacman, clyde, blinky, pinky, inky, world, ghosts = [];
 
+	var initCharacters = function() {
+		pacman = new Pacman();
 
+		$(document).on('keydown', function(e) {
+			pacman.move.call(world, e);
+		});
 
+		clyde = new Ghost(14, 15, 27, 30, 0, 0, 'clyde');
+		pinky = new Ghost(14, 12, 1, 1, 0, 0, 'pinky');
+		inky = new Ghost(14, 13, 27, 1, 0, 0, 'inky');
+		blinky = new Ghost(14, 14, 1, 30, 0, 0, 'blinky');
+		ghosts.push(clyde, pinky, inky, blinky);
+	};
+
+	var initWorld = function() {
+		world = new World();
+		world.drawWorld();
+		world.drawCharacter(pacman);
+		world.drawCharacter(pinky);
+		world.drawCharacter(inky);
+		world.drawCharacter(blinky);
+		world.drawCharacter(clyde);
+	};
+
+	var applyToGhosts = function(callback) {
+		for (var i = 0; i < ghosts.length; i++) {
+			callback(ghosts[i]);
+		}
+	};
+
+	var currentMode = "scatter";
+
+	var setMode = function(mode) {
+		currentMode = mode;
+		applyToGhosts(function(ghost) {
+			ghost.mode = mode;
+		});
+	};
+
+	var counter = 0,
+		rounds = 1,
+		timer,
+		moveTimer,
+		scatterDur = 7,
+		attackDur = 20;
+
+	var moveGhosts = function() {
+		moveTimer = setInterval(function() {
+			applyToGhosts(function (ghost) {
+				ghost.move.call(world, pacman);
+			});
+		}, 500);
+	};
+
+	var runGhosts = function() {
+		timer = setInterval(function() {
+			console.log("current mode: ", currentMode);
+			console.log("counter: ", counter, "rounds: ", rounds);
+			counter++;
+			if (rounds <= 3) {
+				if (counter == scatterDur) {
+					setMode('attack');
+					console.log(" \n\n\nCHANING MODE TO ATTACK \n\n\n");
+				} else if (counter == scatterDur + attackDur) {
+					setMode('scatter');
+					console.log(" \n\n\nCHANING MODE TO SCATTER \n\n\n");
+					counter = 0;
+					rounds++;
+				}
+			} else {
+				setMode('attack');
+			}
+		}, 1000);
+	};
+
+	return {
+
+		initialize: function() {
+			initCharacters();
+			initWorld();
+			moveGhosts();
+			runGhosts();
+		}
+
+	};
+};
+
+$(document).ready(function() {
+	var game = new Game();
+	game.initialize();
+});
