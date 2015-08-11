@@ -18,7 +18,7 @@ h1 {
 #lives {
     color: red;
     display: inline-block;
-    color: black;
+    font-size: 2em;
     padding-top: 10px;
     padding-left: 10px;
     font-family: Impact;
@@ -26,7 +26,7 @@ h1 {
 
 
 #world {
-    width: 84vh !important;
+    width: 81vh !important;
     height: 93vh !important;
     border-spacing: 0px;
     position: absolute;
